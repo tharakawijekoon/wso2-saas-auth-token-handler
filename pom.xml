@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.wso2.custom</groupId>
+    <artifactId>org.wso2.custom.saas.auth.handler</artifactId>
+    <packaging>bundle</packaging>
+    <version>1.0.0</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.utils</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.core</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity.framework</groupId>
+            <artifactId>org.wso2.carbon.identity.core</artifactId>
+            <version>5.17.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity.inbound.auth.oauth2</groupId>
+            <artifactId>org.wso2.carbon.identity.oauth</artifactId>
+            <version>6.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity.auth.rest</groupId>
+            <artifactId>org.wso2.carbon.identity.auth.service</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.0.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Private-Package>
+                            org.wso2.custom.saas.auth.handler.internal
+                        </Private-Package>
+                        <Import-Package>
+                            javax.servlet.*; version="${imp.pkg.version.javax.servlet}",
+                            org.apache.axiom.*; version="${axiom.osgi.version.range}",
+                            org.apache.axis2.*; version="${axis2.osgi.version.range}",
+                            org.apache.commons.lang; version="${commons-lang.wso2.osgi.version.range}",
+                            org.apache.commons.logging.*; version="${commons-logging.osgi.version.range}",
+                            org.osgi.framework; version="${osgi.framework.imp.pkg.version.range}",
+                            org.osgi.service.component; version="${osgi.service.component.imp.pkg.version.range}",
+                            org.osgi.util.tracker; version="${osgi.util.tracker.imp.pkg.version.range}",
+                            org.wso2.carbon.core.*; version="${carbon.kernel.imp.pkg.version.range}",
+                            org.wso2.carbon.utils.*; version="${carbon.kernel.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.application.common.model.*;
+                            version="${carbon.identity.package.import.version.range}"
+                            org.wso2.carbon.identity.core.*; version="${carbon.identity.package.import.version.range}",
+                            org.wso2.carbon.identity.oauth2.*;
+                            version="${org.wso2.carbon.identity.oauth.import.version.range}",
+                            org.wso2.carbon.identity.auth.service.*; version="[1.0.0,2.0.0)"
+                        </Import-Package>
+                        <Export-Package>
+                            !org.wso2.custom.saas.auth.handler.internal,
+                            org.wso2.custom.saas.auth.handler.*;
+                            version="${project.version}"
+                        </Export-Package>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- Servlet API -->
+        <imp.pkg.version.javax.servlet>[2.6.0, 3.0.0)</imp.pkg.version.javax.servlet>
+
+        <!-- Axis2 Version -->
+        <axis2.osgi.version.range>[1.6.1-wso2v38, 2.0.0)</axis2.osgi.version.range>
+
+        <!-- Axiom Version -->
+        <axiom.osgi.version.range>[1.2.11, 2.0.0)</axiom.osgi.version.range>
+
+        <!-- Commons Version -->
+        <commons-logging.osgi.version.range>[1.2.0, 2.0.0)</commons-logging.osgi.version.range>
+
+        <commons-lang.wso2.osgi.version.range>[2.6.0,3.0.0)</commons-lang.wso2.osgi.version.range>
+
+        <!-- OSGi framework component version -->
+        <osgi.service.component.imp.pkg.version.range>[1.2.0, 2.0.0)</osgi.service.component.imp.pkg.version.range>
+        <osgi.framework.imp.pkg.version.range>[1.7.0, 2.0.0)</osgi.framework.imp.pkg.version.range>
+        <osgi.util.tracker.imp.pkg.version.range>[1.5.1, 2.0.0)</osgi.util.tracker.imp.pkg.version.range>
+
+        <!-- Carbon Kernel version -->
+        <carbon.kernel.imp.pkg.version.range>[4.5.0, 5.0.0)</carbon.kernel.imp.pkg.version.range>
+
+        <!--Carbon identity version-->
+        <carbon.identity.package.import.version.range>[5.14.67, 6.0.0)</carbon.identity.package.import.version.range>
+
+        <org.wso2.carbon.identity.oauth.import.version.range>[6.2.18, 7.0.0)
+        </org.wso2.carbon.identity.oauth.import.version.range>
+
+    </properties>
+
+</project>
